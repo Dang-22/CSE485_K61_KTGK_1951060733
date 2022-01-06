@@ -7,7 +7,7 @@
             $adminModel = new AdminModel();
             $admins = $adminModel->getAllMember();
             // Sau khi truy vấn được dữ liệu, tôi sẽ đổ ra UserView/index.php tương ứng
-            require_once 'view/show.php';
+            require_once 'view/gv/show.php';
         }
 
         public function add() {
@@ -55,7 +55,7 @@
                 }
             }
             //gọi view
-            require_once 'view/add.php';
+            require_once 'view/gv/add.php';
         }
         function edit(){
             // Tôi sẽ cần gọi UserModel để truy vấn dữ liệu
@@ -63,8 +63,33 @@
             // Sau khi truy vấn được dữ liệu, tôi sẽ đổ ra UserView/edit.php tương ứng
         }
 
-        function delete(){
-
+        public function delete() {
+            //url trên trình dueyjet sẽ có dạng
+    //        ?controller=book&action=delete&id=1
+            //bắt id từ trình duyêtj
+            $magv = $_GET['magv'];
+            if (!is_numeric($magv)) {
+                header("Location: index.php?controller=gv&action=index");
+                exit();
+            }
+    
+            $adminModel = new AdminModel();
+            $isDelete = $adminModel->delete($magv);
+    
+            if ($isDelete) {
+                //chuyển hướng về trang liệt kê danh sách
+                //tạo session thông báo mesage
+                $_SESSION['success'] = "Xóa bản ghi #$magv thành công";
+            }
+            else {
+                //báo lỗi
+                $_SESSION['error'] = "Xóa bản ghi #$magv thất bại";
+            }
+    
+    
+            exit();
+    
+    
         }
     }
 

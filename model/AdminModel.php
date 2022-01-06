@@ -34,12 +34,25 @@
         public function insert($param = []) {
             $connection = $this->connectDb();
             //tạo và thực thi truy vấn
-            $queryInsert = "INSERT INTO giangvien (hovaten, ngaysinh, gioitinh, trinhdo, chuyenmon, hocham, hocvi, coquan)
-            VALUES ('{$param['hovaten, ngaysinh, gioi tinh, trinhdo, chuyenmon, hocham, hoc vi, co quan']}')";
+            $queryInsert = "INSERT INTO giangvien (`hovaten`, `ngaysinh`, `gioitinh`, `trinhdo`, `chuyenmon`, `hocham`, `hocvi`, `coquan`)
+            VALUES ('{$param['']}')";
             $isInsert = mysqli_query($connection, $queryInsert);
             $this->closeDb($connection);
     
             return $isInsert;
+        }
+
+
+
+        public function delete($magv = null) {
+            $connection = $this->connectDb();
+    
+            $queryDelete = "DELETE FROM magv WHERE magv = $magv";
+            $isDelete = mysqli_query($connection, $queryDelete);
+    
+            $this->closeDb($connection);
+    
+            return $isDelete;
         }
     
         

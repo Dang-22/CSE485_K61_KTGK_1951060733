@@ -26,17 +26,14 @@
                     <th scope="col">Cơ Quan</th>
                 </tr>
                 <div>
-                <a class="btn btn-primary" href="view/add.php">Thêm</a>
+                <a class="btn btn-primary" href="view/gv/add.php">Thêm</a>
             </div>
             </thead>
             <tbody>
-                
-                <?php
-                   
-                   foreach ($admins as $admin){
-                ?>
-                            <tr>
-                                <th scope="row">
+            <?php if (!empty($books)): ?>
+        <?php foreach ($admins AS $admin) : ?>
+            <tr>
+            <th scope="row">
                                 <?php echo $admin['magv']; ?></th>
                                 <th><?php echo $admin['hovaten']; ?></th>
                                 <td><?php echo $admin['ngaysinh']; ?></td>
@@ -46,12 +43,31 @@
                                 <td><?php echo $admin['hocham']; ?></td>
                                 <td><?php echo $admin['hocvi']; ?></td>
                                 <td><?php echo $admin['coquan']; ?></td>
-                            </tr>
-                <?php
-                        }                    
-                ?>
-                
-                
+                <td>
+                    <?php
+                    //khai báo 3 url xem, sửa, xóa
+                    $urlDetail =
+                        "index.php?controller=book&action=detail&id=" . $admin['magv'];
+                    $urlEdit =
+                        "index.php?controller=book&action=edit&id=" . $admin['magv'];
+                    $urlDelete =
+                        "index.php?controller=book&action=delete&id=" . $admin['magv'];
+                    ?>
+                    <a href="<?php echo $urlDetail?>">Chi tiết</a> &nbsp;
+                    <a href="<?php echo $urlEdit?>">Edit</a> &nbsp;
+                    <a onclick="return confirm('Bạn chắc chắn muốn xóa?')"
+                       href="<?php echo $urlDelete?>">
+                        Xóa
+                    </a>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+    <?php else: ?>
+        <tr>
+            <td colspan="2">KHông có dữ liệu</td>
+        </tr>
+    <?php endif; ?>
+                 
             </tbody>
             </table>
     </div>    
